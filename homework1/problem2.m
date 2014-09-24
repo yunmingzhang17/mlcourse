@@ -26,7 +26,7 @@ fplot(@(x) sin(2*pi*x), [0,1, -2, 2], 'r')
 hold on
  %plotMLEforM(X, Y, 1);
  
- plotMLEforM(X, Y, 3);
+ %plotMLEforM(X, Y, 3);
 
 % X = [ones(length(Y), 1), X]; % Add a column of ones to x
 % theta = normalEqn(X, Y);
@@ -62,10 +62,23 @@ function testGradientDescent ()
 %minTheta = gradientDescentML([1; 1], @computeSSE, @computeSSEGradient, 0.05, 0.000001)
 %minTheta2 = gradientDescentML2([1; 1], @computeSSE2, @computeSSEGradient2, 0.05, 0.000001, 1)
 
+
+%M = 2 not including the ones column
+% minTheta3 = gradientDescentML([0; 0; 0], @computeSSE2, @computeSSEGradient2, 0.05, 0.0000001)
+% plotWithTheta(minTheta3);
+
+% hold on
+
 %M = 3
 %easy to get into local minimum
-minTheta2 = gradientDescentML2([0; 0; 0; 0], @computeSSE2, @computeSSEGradient2, 0.05, 0.0000001, 3)
+% minTheta4 = gradientDescentML([0; 0; 0; 0], @computeSSE2, @computeSSEGradient2, 0.05, 0.0000001)
+% plotWithTheta(minTheta4);
 
+hold on
+% M = 9
+%as the dimensions increases, the step size needs to be smaller
+minTheta10 = gradientDescentML(zeros(10, 1), @computeSSE2, @computeSSEGradient2, 0.04, 0.0000001)
+plotWithTheta(minTheta10);
 
 end
 

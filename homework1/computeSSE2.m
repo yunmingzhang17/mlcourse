@@ -1,4 +1,4 @@
-function J =  computeSSE2(theta, M)
+function J =  computeSSE2(theta)
     
 
 
@@ -14,7 +14,10 @@ function J =  computeSSE2(theta, M)
     Y = [0.3495,    0.8308,    1.0073,    0.9715,    0.1331,    0.1668,   -0.8483,   -0.4457,   -0.5636,    0.2615]';
     
     newX = [];
-    for i = 0 : M 
+    
+    M = length(theta) - 1;
+    
+    for i = 0 : M
         newX = horzcat(newX, X.^(i));
     end
    
