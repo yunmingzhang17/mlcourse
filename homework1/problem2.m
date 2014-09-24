@@ -50,8 +50,8 @@ hold on
 % 
 % plot(xrange, yrange, 'g');
 
-compareSSEGradient();
-%testGradientDescent();
+%compareSSEGradient();
+testGradientDescent();
 
 
 end
@@ -64,7 +64,7 @@ function testGradientDescent ()
 
 %M = 3
 %easy to get into local minimum
-minTheta2 = gradientDescentML2([0; 10; -30; 15], @computeSSE2, @computeSSEGradient2, 0.05, 0.00001, 3)
+minTheta2 = gradientDescentML2([0; 0; 0; 0], @computeSSE2, @computeSSEGradient2, 0.05, 0.0000001, 3)
 
 
 end
