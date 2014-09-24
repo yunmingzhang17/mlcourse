@@ -96,23 +96,30 @@ end
 function plotMLEforM(X, Y, M)
 
 newX = [];
-newXRangeWithOnes = [];
-xrange = 0: 0.01: 1;
-
 
 for i = 0 : M 
    newX = horzcat(newX, X.^(i));
 end
 
 theta = normalEqn(newX, Y)
+
+plotWithTheta(theta);
+
+end
+
+
+function plotWithTheta(theta)
     
-for i = 0 : M 
-   newXRangeWithOnes = horzcat(newXRangeWithOnes, xrange'.^(i));
+    M = length(theta);
+    newXRangeWithOnes = [];
+    xrange = 0: 0.01: 1;
+    for i = 0 : M-1 
+        newXRangeWithOnes = horzcat(newXRangeWithOnes, xrange'.^(i));
+    end
+    yrange = newXRangeWithOnes*theta;
+    plot(xrange, yrange, 'g');
+
 end
 
-yrange = newXRangeWithOnes*theta;
-plot(xrange, yrange, 'g');
-
-end
 
 
