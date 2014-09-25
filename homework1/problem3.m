@@ -19,12 +19,15 @@ hold on
 %plot the sin2pi function
 fplot(@(x) sin(2*pi*x), [0,1, -2, 2], 'r') 
 
+% hold on
+% 
+% weight = computeRidgeWeight(X, Y, 0, 3);
+% plotWithTheta(weight);
+
 hold on
 
-weight = computeRidgeWeight(X, Y, 0, 3);
+weight = computeRidgeWeight(X, Y, 0.001, 9);
 plotWithTheta(weight);
-
-
 
 
  end
@@ -58,25 +61,25 @@ plotWithTheta(weight);
     
  end
 
-function ridge = computeRidge(X, Y, theta, lambda)
-    
-    M = length(theta) - 1;
-    Z = [];
-    for i = 0 : M
-        Z = horzcat(newX, X.^(i));
-    end
-
-    ridge = (normalY - Z*theta) + lambda*theta'*theta;    
-
-end
-
-function gradient = computeRidgeGradient(X, Y, theta, lambda)
-    
-    M = length(theta) - 1;
-    Z = [];
-    for i = 0 : M
-        Z = horzcat(newX, X.^(i));
-    end
-    gradient = Z'*(Z*theta - Y) + lambda*theta;
-    
-end
+% function ridge = computeRidge(X, Y, theta, lambda)
+%     
+%     M = length(theta) - 1;
+%     Z = [];
+%     for i = 0 : M
+%         Z = horzcat(newX, X.^(i));
+%     end
+% 
+%     ridge = (normalY - Z*theta) + lambda*theta'*theta;    
+% 
+% end
+% 
+% function gradient = computeRidgeGradient(X, Y, theta, lambda)
+%     
+%     M = length(theta) - 1;
+%     Z = [];
+%     for i = 0 : M
+%         Z = horzcat(newX, X.^(i));
+%     end
+%     gradient = Z'*(Z*theta - Y) + lambda*theta;
+%     
+% end
