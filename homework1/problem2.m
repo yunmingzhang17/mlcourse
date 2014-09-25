@@ -71,13 +71,21 @@ function testGradientDescent ()
 
 %M = 3
 %easy to get into local minimum
-% minTheta4 = gradientDescentML([0; 0; 0; 0], @computeSSE2, @computeSSEGradient2, 0.05, 0.0000001)
+minTheta4 = gradientDescentML(zeros(4,1), @computeSSE2, @computeSSEGradient2, 0.05, 0.0000001)
 % plotWithTheta(minTheta4);
 
 hold on
 % M = 9
 %as the dimensions increases, the step size needs to be smaller
-minTheta10 = gradientDescentML(zeros(10, 1), @computeSSE2, @computeSSEGradient2, 0.04, 0.0000001)
+
+%the answer [0.35; 232.37; -5321.83; 48568.31; -231639.30; 640042.26; -1061800.52; 1042400.18; -557682.99; 125201.43;];
+%this works 
+initGuess = [0.35; 100; -5321.83; 48568.31; -231639.30; 640042.26; -1061800.52; 1042400.18; -557682.99; 125201.43;];
+%initGuess = [0.35; 0; -5321.83; 48568.31; 0; 640042.26; -1061800.52; 1042400.18; -557682.99; 125201.43;];
+
+%0.05 for step size is alwyas too big
+
+minTheta10 = gradientDescentML(initGuess, @computeSSE2, @computeSSEGradient2, 0.03, 0.0000001)
 plotWithTheta(minTheta10);
 
 end
@@ -121,18 +129,7 @@ plotWithTheta(theta);
 end
 
 
-function plotWithTheta(theta)
-    
-    M = length(theta);
-    newXRangeWithOnes = [];
-    xrange = 0: 0.01: 1;
-    for i = 0 : M-1 
-        newXRangeWithOnes = horzcat(newXRangeWithOnes, xrange'.^(i));
-    end
-    yrange = newXRangeWithOnes*theta;
-    plot(xrange, yrange, 'g');
 
-end
 
 
 

@@ -1,4 +1,4 @@
-function [newX,newY, numIterations] = gradientDescentML2(initialGuess, objectiveFunction, computeGradient, stepSize, threshold, M)
+function [newX,newY, numIterations] = gradientDescentML2(initialGuess, objectiveFunction, computeGradient, stepSize, threshold, X, Y, lambda)
 
 %Gradient Descent
 
@@ -11,12 +11,12 @@ while true
     numIterations = numIterations + 1;
     
     if (firstIter == 1)
-        oldY = objectiveFunction(currentX, M);  
+        oldY = objectiveFunction(X, Y, currentX, lambda);  
         firstIter = 0;
     else
-        gradient = computeGradient(currentX, M);
+        gradient = computeGradient(X, Y, currentX, lambda);
         newX = currentX - gradient*stepSize;
-        newY = objectiveFunction(newX, M);
+        newY = objectiveFunction(X, Y, currentX, lambda);
         difference = abs(oldY - newY);
         if difference < threshold
 
