@@ -1,15 +1,14 @@
  function weight = computeRidgeWeightNoDim(X, Y, lambda)    
-    Z = [];
-    for i = 1 : M
-        Z = horzcat(Z, X.^(i));
-    end
     
+    
+    [N,M] = size(X);
+    Z = zeros(N,M);
     Xnormalized = zeros(1, M);
     
     
     for i = 1: M
-        muXj = mean(Z(:, i));
-        Z(:,i) = Z(:, i) - muXj;
+        muXj = mean(X(:, i));
+        Z(:,i) = X(:, i) - muXj;
         Xnormalized(:,i) = muXj;
     end
     

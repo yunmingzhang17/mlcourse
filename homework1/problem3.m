@@ -3,7 +3,7 @@ clear all;
 close all;
 clc;
  
-part2();
+part3();
     
  
  end
@@ -67,9 +67,9 @@ part3();
 %     sse2 = computeSSE3(weightA, XA', YA')
 
     
-    weightA = computeRidgeWeight(XA', YA', 0.1, 3);
+    weightA = computeRidgeWeight(XA', YA', 0.1, 3)
+    %weightA2 = ridgeRegression(XA', YA', 0.1)
     sseA = computeSSE3(weightA, XA', YA')
-    
     
     
 %     XA = [ones(1,length(XA))', XA'];
@@ -116,10 +116,24 @@ part3();
  
  function part3
     
-    fls = dir('BlogFeedback/blogData_test*.csv');
-    for fi=1:numel(fls)
-        A{fi} = importdata(strcat('BlogFeedback/', fls(fi).name));
-    end
+    data = importdata('BlogFeedback/blogData_train.csv');
+    [row, col] = size(data);
+    X = data(:,1:(col-1));
+    Y = data(:,col);
+   weight = computeRidgeWeightNoDim(X, Y, 1)
+    
+    weight2 = ridgeRegression(X,Y,1)
+    
+    diff = sum(weight - weight2)
+    
+%     fls = dir('BlogFeedback/blogData_test*.csv');
+%     for fi=1:numel(fls)
+%         A{fi} = importdata(strcat('BlogFeedback/', fls(fi).name));
+%     end
+ 
+    
+    
+    
     
  end
 
@@ -150,6 +164,8 @@ part3();
     weight = [W0; Wridge];
     
  end
+
+ 
 
 % function ridge = computeRidge(X, Y, theta, lambda)
 %     
