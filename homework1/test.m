@@ -44,12 +44,13 @@ end
 
 
 function compareQualdraticGradient
-    x = [[10, 10]; [12 ,2]];
+    %x = [[10, 10]; [12 ,2]];
+    x = [[10, 10]];
     [rows, cols] = size(x);
     for row = 1:rows
         qualdraticGradient(x(row, :))
         qualdraticGradientNumerical(x(row, :))
-        computeNumericalGradient(@qualdraticBowl, x(row, :));
+        computeNumericalGradient(@qualdraticBowl, x(row, :))
     end
 end
 
@@ -95,11 +96,11 @@ function gradient = computeNumericalGradient(objectiveFunction, X)
     gradient = zeros(length(X),1)';
     
     for i = 1: length(X)
-        Xplus = zeros(length(X),1)';
-        Xminus = zeros(length(X),1)';
-        Xplus(i) = Xplus(i) + delta;
-        Xminus(i) = Xminus(i) - delta;
-        gradient(i) = objectiveFunction(Xplus) - objectiveFunction(Xminus);        
+        Xplus = X;
+        Xminus = X;
+        Xplus(i) = X(i) + delta;
+        Xminus(i) = X(i) - delta;
+        gradient(i) = (objectiveFunction(Xplus) - objectiveFunction(Xminus))./(2*delta); 
     end
 
 end

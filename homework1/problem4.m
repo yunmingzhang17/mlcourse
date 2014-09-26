@@ -1,6 +1,5 @@
 function problem4
     close all
-    clear all
     clc
     part1();
 
@@ -13,8 +12,11 @@ function part1()
     
     %weightA = gradientDescentML2(XA', YA', 0.1, 3)
     
-    [newX,newY, numIterations] = gradientDescentML2([0; 0; 0], @LAD, @computeNumericalGradient, 0.01, 0.0001, XA', YA', 0)
+    [weightA,newY, numIterations] = gradientDescentML2([0; 0; 0], @LAD, @computeNumericalGradient, 0.001, 0.00001, XA', YA', 0)
 
-    
+    sseVA = computeSSE3(weightA, XV', YV')
+    plot(XA', YA', 'og', 'MarkerSize', 10);
+    hold on;
+    plotWithTheta2(weightA, -3, 2);
 end
 

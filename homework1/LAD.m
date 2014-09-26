@@ -7,9 +7,6 @@ function J = LAD(X, Y, weight, lambda)
     for i = 0 : M
         newX = horzcat(newX, X.^(i));
     end
-   
-    newX
-    weight
     
     predictions = newX*weight;
     absErrors = abs(predictions - Y);
