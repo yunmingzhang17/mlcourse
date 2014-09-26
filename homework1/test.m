@@ -17,10 +17,10 @@ clc
 %[x,y] = gradientDescentML(10,@nonConvex,@nonConvexGradientNumerical,0.001,0.000001)
 
 %Problem 3
-%compareQualdraticGradient();
+compareQualdraticGradient();
 
 %Problem 4
-compareQualdraticMin();
+%compareQualdraticMin();
 
 end
 
@@ -49,6 +49,7 @@ function compareQualdraticGradient
     for row = 1:rows
         qualdraticGradient(x(row, :))
         qualdraticGradientNumerical(x(row, :))
+        computeNumericalGradient(@qualdraticBowl, x(row, :));
     end
 end
 
@@ -86,6 +87,21 @@ function y = nonConvexGradientNumerical(x)
     xplus = x + delta;
     xminus = x - delta;
     y = (nonConvex(xplus) - nonConvex(xminus))./(2*delta);   
+end
+
+
+function gradient = computeNumericalGradient(objectiveFunction, X)
+    delta = 0.000001;
+    gradient = zeros(length(X),1)';
+    
+    for i = 1: length(X)
+        Xplus = zeros(length(X),1)';
+        Xminus = zeros(length(X),1)';
+        Xplus(i) = Xplus(i) + delta;
+        Xminus(i) = Xminus(i) - delta;
+        gradient(i) = objectiveFunction(Xplus) - objectiveFunction(Xminus);        
+    end
+
 end
 
 % function y = gaussian(x)

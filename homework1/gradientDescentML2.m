@@ -14,7 +14,7 @@ while true
         oldY = objectiveFunction(X, Y, currentX, lambda);  
         firstIter = 0;
     else
-        gradient = computeGradient(X, Y, currentX, lambda);
+        gradient = computeGradient(objectiveFunction, X, Y, currentX, lambda);
         newX = currentX - gradient*stepSize;
         newY = objectiveFunction(X, Y, currentX, lambda);
         difference = abs(oldY - newY);
