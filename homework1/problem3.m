@@ -115,23 +115,39 @@ part3();
  end
  
  function part3
-    
+    fls = dir('BlogFeedback/blogData_test*.csv');
     data = importdata('BlogFeedback/blogData_train.csv');
     [row, col] = size(data);
     X = data(:,1:(col-1));
     Y = data(:,col);
-   weight = computeRidgeWeightNoDim(X, Y, 1)
     
-    weight2 = ridgeRegression(X,Y,1)
+    lambda = 100000;
+    weight = computeRidgeWeightNoDim(X, Y, lambda);
     
-    diff = sum(weight - weight2)
+    weight2 = ridgeRegression(X,Y,1);
     
+    diff = sum(weight - weight2);
+    ERR = zeros(60,1);
+    
+    for fi=1:60
+        A{fi} = importdata(strcat('BlogFeedback/', fls(fi).name));
+        testData = A{fi};
+        [rowT, colT] = size(testData);
+        Xtest = testData(:,1:(colT-1));
+        Ytest = testData(:,colT);
+        XtestEstimate = [ones(rowT, 1), Xtest];
+        YtestEstimate = XtestEstimate*weight;
+        
+        %normalized by the numerber of data sets
+        err = sumsqr(YtestEstimate - Ytest)/rowT;
+        ERR(fi) = err;
+    end
 %     fls = dir('BlogFeedback/blogData_test*.csv');
 %     for fi=1:numel(fls)
 %         A{fi} = importdata(strcat('BlogFeedback/', fls(fi).name));
 %     end
- 
-    
+    varErr = var(ERR)
+    meanErr = mean(ERR)
     
     
     
