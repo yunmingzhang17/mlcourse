@@ -17,7 +17,7 @@ while true
         gradient = computeGradient(currentX);
         newX = currentX - gradient*stepSize;
         newY = objectiveFunction(newX);
-        difference = abs(oldY - newY)
+        difference = abs(oldY - newY);
         if difference < threshold
 
             break

@@ -17,10 +17,10 @@ clc
 %[x,y] = gradientDescentML(10,@nonConvex,@nonConvexGradientNumerical,0.001,0.000001)
 
 %Problem 3
-compareQualdraticGradient();
+%compareQualdraticGradient();
 
 %Problem 4
-%compareQualdraticMin();
+compareQualdraticMin();
 
 end
 
@@ -35,11 +35,13 @@ function compareQualdraticMin
     %[x,y,iterations] = gradientDescentML([10,10],@qualdraticBowl,@qualdraticGradient,0.1,0.0001)
 
     %will ocillate betwen different values and never stop
-    [x,y,iterations] = gradientDescentML([10,10],@qualdraticBowl,@qualdraticGradient,0.5,0.0001)    
+    [x,y,iterations] = gradientDescentML([10,10],@qualdraticBowl,@qualdraticGradient,0.2,1e-5)    
     
     
-    %[x,y,iterations] = gradientDescentML([10,10],@qualdraticBowl,@qualdraticGradient,0.1,0.0001)
-    %[x,y,exitflag,output,lambda] = fmincon(@qualdraticBowl,[10,10],[-1 -1;1 1],[1000,1000])
+    [x,y,iterations] = gradientDescentML([10,10],@qualdraticBowl,@qualdraticGradient,0.01,0.0001)
+    opt = optimset('TolFun', 1e-5);
+    %[x,y,exitflag,output,lambda] = fminunc(@qualdraticBowl,[10,10],[-1 -1;1 1],[1000,1000])
+    [x,y,exitflag,output] = fmincon(@qualdraticBowl,[10,10], opt);
 end
 
 

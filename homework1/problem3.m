@@ -115,39 +115,40 @@ part3();
  end
  
  function part3
-    fls = dir('BlogFeedback/blogData_test*.csv');
-    data = importdata('BlogFeedback/blogData_train.csv');
-    [row, col] = size(data);
-    X = data(:,1:(col-1));
-    Y = data(:,col);
+ 
+ 
+    fls = dir('dataset/blogData_test*.csv');
+    x_train = importdata('dataset/x_train.csv');
+    y_train = importdata('dataset/y_train.csv');
+
     
     lambda = 100000;
-    weight = computeRidgeWeightNoDim(X, Y, lambda);
+    weight = computeRidgeWeightNoDim(x_train, y_train, lambda)
     
-    weight2 = ridgeRegression(X,Y,1);
-    
-    diff = sum(weight - weight2);
-    ERR = zeros(60,1);
-    
-    for fi=1:60
-        A{fi} = importdata(strcat('BlogFeedback/', fls(fi).name));
-        testData = A{fi};
-        [rowT, colT] = size(testData);
-        Xtest = testData(:,1:(colT-1));
-        Ytest = testData(:,colT);
-        XtestEstimate = [ones(rowT, 1), Xtest];
-        YtestEstimate = XtestEstimate*weight;
-        
-        %normalized by the numerber of data sets
-        err = sumsqr(YtestEstimate - Ytest)/rowT;
-        ERR(fi) = err;
-    end
-%     fls = dir('BlogFeedback/blogData_test*.csv');
-%     for fi=1:numel(fls)
+%     weight2 = ridgeRegression(X,Y,1);
+%     
+%     diff = sum(weight - weight2);
+%     ERR = zeros(60,1);
+%     
+%     for fi=1:60
 %         A{fi} = importdata(strcat('BlogFeedback/', fls(fi).name));
+%         testData = A{fi};
+%         [rowT, colT] = size(testData);
+%         Xtest = testData(:,1:(colT-1));
+%         Ytest = testData(:,colT);
+%         XtestEstimate = [ones(rowT, 1), Xtest];
+%         YtestEstimate = XtestEstimate*weight;
+%         
+%         %normalized by the numerber of data sets
+%         err = sumsqr(YtestEstimate - Ytest)/rowT;
+%         ERR(fi) = err;
 %     end
-    varErr = var(ERR)
-    meanErr = mean(ERR)
+% %     fls = dir('BlogFeedback/blogData_test*.csv');
+% %     for fi=1:numel(fls)
+% %         A{fi} = importdata(strcat('BlogFeedback/', fls(fi).name));
+% %     end
+%     varErr = var(ERR)
+%     meanErr = mean(ERR)
     
     
     
