@@ -19,7 +19,6 @@ while true
         newY = objectiveFunction(X, Y, newX, lambda);
         difference = abs(oldY - newY);
         if difference < threshold
-
             break
         end
         
