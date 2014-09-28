@@ -1,5 +1,5 @@
 
-all:tex
+all:clean tex
 
 
 

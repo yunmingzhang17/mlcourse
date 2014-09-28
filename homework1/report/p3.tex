@@ -1,7 +1,8 @@
 \section{Problem 3}
 
-\subsection{Algorithm}
+\subsection{Part1}
 
+{\bfseries Algorithm} \\
 We first create a centered x data matrix Z. And then we cerate a centered y values.
 
 \begin{equation}
@@ -9,13 +10,20 @@ z^{(i)}_{j} = x^{(i)}_{j} - \bar{x}_{j} \hspace{10 mm}
 y^{(i)}_{c} = y^{(i)} - \bar{y} \\
 \end{equation}
 
-Then we use the formula
+Then we use the formula for calculating the error. It uses a lambda for regularizing the
+weight terms. 
 
 \begin{equation}
   E(w)= (Y_{c} - ZW)^T(Y_{c}-ZW) + \lambda W^TW \\
 \end{equation}
 
+We used a regularized term to calculate optimal weight using the following equation
 
-\subsection{Model Selection}
+\begin{equation}
+  W_{ridge} = (Z^{T}Z + \lambda I)^{-1}Z^{T}Y_{c}
+\end{equation}
 
-\subsection{Summary}
+
+\subsection{Part2}
+
+\subsection{Part3}
