@@ -9,4 +9,4 @@ tex:
 	ps2pdf main.ps
 
 clean:
-	rm -rfv *.aux *.toc *.lo* *.idx *.bbl *.blg *.dvi *.pdf *.tmp
+	rm -rfv *.aux *.toc *.lo* *.idx *.bbl *.blg *.dvi *.pdf *.tmp *.ps
