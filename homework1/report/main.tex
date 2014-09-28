@@ -1,0 +1,86 @@
+\iffalse
+
+INSTRUCTIONS:
+
+  Clip out the ********* INSERT HERE ********* bits below and insert
+appropriate TeX code.  Once you are done with your file, run
+
+  ``latex sample.tex''
+
+from the Athena shell.  If your TeX code is clean, the latex will exit
+back to a prompt.  Once this is done, run
+
+  ``dvips -t letter -f sample.dvi > sample.ps''
+
+You can then convert the PostScript output to PDF:
+  ``ps2pdf sample.ps''
+
+\fi
+\documentclass[11pt]{article}
+\usepackage{amsfonts}
+\usepackage{latexsym}
+\setlength{\oddsidemargin}{.25in}
+\setlength{\evensidemargin}{.25in}
+\setlength{\textwidth}{6in}
+\setlength{\topmargin}{-0.4in}
+\setlength{\textheight}{8.5in}
+
+\newcommand{\handout}[5]{
+   \renewcommand{\thepage}{#1-\arabic{page}}
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{
+    \hbox to 5.78in { {\bf 6.046: Intro to Algorithms} \hfill Due: #2 }
+       \vspace{4mm}
+       \hbox to 5.78in { {\Large \hfill #1: #5  \hfill} }
+       \vspace{2mm}
+       \hbox to 5.78in { {\it Instructor: #3 \hfill TA: #4} }
+      }
+   }
+   \end{center}
+   \vspace*{4mm}
+}
+
+\newcommand{\al}{\alpha}
+\newcommand{\Z}{\mathbb Z}
+
+\begin{document}
+
+\handout{Problem Set N}{Due Date here}{Instructor Here}
+{Your T.A. Here}{Your Name Here}
+
+I collaborated with Collaborators Here.
+
+\section*{Problem 1}
+
+\subsection*{A}
+Here are some examples of using LaTeX symbols:
+
+$\Theta(n^2) = \sum_{i=0}^n i$
+
+$\Theta(n) = \Omega(n)$
+
+$\Theta(n) \neq \omega(n)$
+
+\subsection*{B}
+\begin{itemize}
+\item You can make
+\item bullet
+\item lists.
+\end{itemize}
+
+
+\begin{enumerate}
+\item Or
+\item numbered
+\item lists.
+\end{enumerate}
+
+
+
+\input{p2}
+
+\end{document}
+
+
