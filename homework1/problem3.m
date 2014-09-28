@@ -114,7 +114,7 @@ part3();
     
     
     current = 0.0001;
-    numberOfLambda = 50;
+    numberOfLambda = 30;
     lambdarange = zeros(numberOfLambda,1)';
     for i = 1:numberOfLambda
         lambdarange(i) = current;
@@ -131,8 +131,8 @@ part3();
         lambda
         weightA = computeRidgeWeight(XA', YA', lambda, M);
         weightB = computeRidgeWeight(XB', YB', lambda, M);
-        sseVA = computeSSE3(weightA, XV', YV')
-        sseVB = computeSSE3(weightB, XV', YV')
+        sseVA = computeSSE3(weightA, XV', YV');
+        sseVB = computeSSE3(weightB, XV', YV');
         errA(i) = sseVA;
         errB(i) = sseVB;
     end
