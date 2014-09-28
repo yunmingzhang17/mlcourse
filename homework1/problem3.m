@@ -1,9 +1,9 @@
  function problem3
-clear all;
+%clear all;
 close all;
-clc;
+
  
-part3();
+part2();
     
  
  end
@@ -112,6 +112,44 @@ part3();
     hold on;
     plotWithTheta2(weightB, -3, 2);
     
+    
+    current = 0.0001;
+    numberOfLambda = 50;
+    lambdarange = zeros(numberOfLambda,1)';
+    for i = 1:numberOfLambda
+        lambdarange(i) = current;
+        current = current * 2;
+    end
+    
+    lambdarange
+    M = 3;
+    errA = zeros(length(lambdarange), 1);
+    errB = zeros(length(lambdarange), 1);
+    i = 0;
+    for lambda = lambdarange
+        i = i+ 1;
+        lambda
+        weightA = computeRidgeWeight(XA', YA', lambda, M);
+        weightB = computeRidgeWeight(XB', YB', lambda, M);
+        sseVA = computeSSE3(weightA, XV', YV')
+        sseVB = computeSSE3(weightB, XV', YV')
+        errA(i) = sseVA;
+        errB(i) = sseVB;
+    end
+        
+    
+    figure();
+    plot(log(lambdarange'), errA, 'og', 'MarkerSize', 10);
+    
+    figure();
+    plot(log(lambdarange'), errB, 'ob', 'MarkerSize', 10);
+
+        
+%     for M = 1:5
+%         
+%     end
+    
+    
  end
  
  function part3
@@ -122,8 +160,27 @@ part3();
     y_train = importdata('dataset/y_train.csv');
 
     
-    lambda = 100000;
-    weight = computeRidgeWeightNoDim(x_train, y_train, lambda)
+    lambda = 1;
+    weight = computeRidgeWeightNoDim(x_train, y_train, lambda);
+    
+    x_val = importdata('dataset/x_val.csv');
+    y_val = importdata('dataset/y_val.csv'); 
+    [rows, cols] = size(x_val);
+    XvalEstimate = [ones(rows, 1), x_val];
+    yvalEstimate = XvalEstimate*weight;
+    valErr = sumsqr(y_val - yvalEstimate)
+    
+    x_test = importdata('dataset/x_test.csv');
+    y_test = importdata('dataset/y_test.csv');
+    [rows, cols] = size(x_test);
+    XtestEstimate = [ones(rows, 1), x_test];
+    ytestEstimate = XtestEstimate*weight;
+    testErr = sumsqr(y_val - yvalEstimate)
+
+    
+
+    
+    
     
 %     weight2 = ridgeRegression(X,Y,1);
 %     
@@ -149,9 +206,7 @@ part3();
 % %     end
 %     varErr = var(ERR)
 %     meanErr = mean(ERR)
-    
-    
-    
+     
  end
 
  function weight = computeRidgeWeight(X, Y, lambda, M)    

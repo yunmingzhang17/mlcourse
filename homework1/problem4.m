@@ -2,7 +2,7 @@ function problem4
     close all
     %clc
     
-    %part1();
+    part1();
     part2();
 
 end
@@ -22,7 +22,17 @@ function part1()
     hold on;
     plotWithTheta2(weightA, -3, 2);
     
+    figure();
+    [weightB,errB, numIterations] = gradientDescentML2([0; 0; 0; 0], @LAD, @computeNumericalGradient, 0.0001, 0.00001, XB', YB', 0)
+    sseB = computeSSE3(weightB, XB', YB')
+        
     
+    sseVB = computeSSE3(weightB, XV', YV')
+    plot(XV', YV', 'og', 'MarkerSize', 10);
+    hold on;
+    plot(XB', YB', 'or', 'MarkerSize', 10);
+    hold on;
+    plotWithTheta2(weightB, -3, 2);  
     
     
 end
@@ -33,21 +43,23 @@ function part2()
     [XB, YB] = regressBData();
     [XV, YV] = validateData();
     
-    [weightA,errA, numIterations] = gradientDescentML2([0; 0; 0; 0], @LASSO, @computeNumericalGradient, 0.0001, 0.00001, XA', YA', 0)
-    figure();
-    sseVA = computeSSE3(weightA, XV', YV')
-    plot(XA', YA', 'og', 'MarkerSize', 10);
-    hold on;
-    plot(XV', YV', 'or', 'MarkerSize', 10);
-    plotWithTheta2(weightA, -3, 2);
+%     [weightA,errA, numIterations] = gradientDescentML2([0; 0; 0; 0], @LASSO, @computeNumericalGradient, 0.0001, 0.00001, XA', YA', 0)
+%     figure();
+%     sseVA = computeSSE3(weightA, XV', YV')
+%     plot(XA', YA', 'og', 'MarkerSize', 10);
+%     hold on;
+%     plot(XV', YV', 'or', 'MarkerSize', 10);
+%     plotWithTheta2(weightA, -3, 2);
     
     
     figure();
-    [weightB,errB, numIterations] = gradientDescentML2([0; 0; 0; 0], @LASSO, @computeNumericalGradient, 0.0001, 0.00001, XB', YB', 0)
+    [weightB,errB, numIterations] = gradientDescentML2([0; 0; 0; 0], @LASSO, @computeNumericalGradient, 0.0001, 0.00001, XB', YB', 0);
     sseB = computeSSE3(weightB, XB', YB')
         
     
     sseVB = computeSSE3(weightB, XV', YV')
+    plot(XB', YB', 'or', 'MarkerSize', 10);
+    hold on;
     plot(XV', YV', 'og', 'MarkerSize', 10);
     hold on;
     plotWithTheta2(weightB, -3, 2);
