@@ -1,4 +1,4 @@
-function evaluateMandLambda(computeWeightFunction )
+function evaluateMandLambda(computeWeightFunction, lossFunction )
     [XA, YA] = regressAData();
     [XB, YB] = regressBData();
     [XV, YV] = validateData();
@@ -12,7 +12,9 @@ function evaluateMandLambda(computeWeightFunction )
     end
     
     
-    for M = 1:2
+    Mrange = [ 1, 2, 4, 10];
+    for M = Mrange
+        M
         errA = zeros(length(lambdarange), 1);
         errB = zeros(length(lambdarange), 1);
         i = 0;
@@ -21,19 +23,30 @@ function evaluateMandLambda(computeWeightFunction )
             
             weightA = computeWeightFunction(XA', YA', lambda, M);
             weightB = computeWeightFunction(XB', YB', lambda, M);
-            sseVA = computeSSE3(weightA, XV', YV');
-            sseVB = computeSSE3(weightB, XV', YV');
-            errA(i) = sseVA;
-            errB(i) = sseVB;
+            errA(i) = lossFunction(weightA, XV', YV');
+            errB(i) = lossFunction(weightB, XV', YV');
+
         end
+        weightA
+        weightB
         figure();
         plot(log(lambdarange'), errA, 'og', 'MarkerSize', 10);
-        title('Graph of Sine and Cosine Between -2\pi and 2\pi')
+        title(strcat('Using trainng set A and M = ', num2str(M)));
         
         figure();
         plot(log(lambdarange'), errB, 'ob', 'MarkerSize', 10);
+        title(strcat('Using trainng set B and M = ', num2str(M)));
+        
+        
+        
     end
     
+    
+    function evaluateMandLambdaOnBishop(computeWeightFunction)
+        
+        
+        
+    end
 
  
 end

@@ -4,9 +4,7 @@ all:clean tex
 
 
 tex:
-	latex main.tex
-	dvips -t letter -f main.dvi > main.ps
-	ps2pdf main.ps
-
+	pdflatex main.tex  /dev/null
+	
 clean:
 	rm -rfv *.aux *.toc *.lo* *.idx *.bbl *.blg *.dvi *.pdf *.tmp *.ps *~

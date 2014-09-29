@@ -3,9 +3,9 @@
 close all;
 
  
-part2();
+%part2();
     
- 
+ evaluateMandLambdaOnBishop();
  end
 
  
@@ -43,11 +43,51 @@ fplot(@(x) sin(2*pi*x), [0,1, -2, 2], 'r')
 
 %Part2
 
-part3();
+%part3();
+
+
 
  end
  
+ 
+function evaluateMandLambdaOnBishop()
+
+    data = importdata('curvefitting.txt');
+    X = data(1,:);
+    Y = data(2,:);
+
+    
+    %lambdarange = [0, 0.01, 0.05, 0.1, 0.5, 1];
+    lambdarange = [0, 0.01, 0.05, 0.1, 0.5, 1, 5];
+    
+    Mrange = [1, 3, 9];
+    for M = Mrange
+        M
+
+        i = 0;
+        for lambda = lambdarange
+            i = i+ 1;
+            lambda
+            weightA = computeRidgeWeight(X', Y', lambda, M)
+            figure();
+            plot(X, Y, 'o', 'MarkerSize', 10);
+            xlabel('x');
+            ylabel('y');
+            hold on
+            fplot(@(x) sin(2*pi*x), [0,1, -2, 2], 'r') 
+            hold on
+            plotWithTheta(weightA);
+            
+        end
+    end
+        
+        
+end
+ 
  function part2
+ 
+
+ 
     [XA, YA] = regressAData();
     [XB, YB] = regressBData();
     [XV, YV] = validateData();
@@ -112,7 +152,7 @@ part3();
     hold on;
     plotWithTheta2(weightB, -3, 2);
     
-    evaluateMandLambda(@computeRidgeWeight);
+    evaluateMandLambda(@computeRidgeWeight, @computeSSE3);
     
 %     current = 0.0001;
 %     numberOfLambda = 30;
@@ -178,9 +218,7 @@ part3();
     ytestEstimate = XtestEstimate*weight;
     testErr = sumsqr(y_val - yvalEstimate)
 
-    
-
-    
+   
     
     
 %     weight2 = ridgeRegression(X,Y,1);
