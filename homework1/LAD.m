@@ -11,6 +11,8 @@ function J = LAD(X, Y, weight, lambda)
     predictions = newX*weight;
     absErrors = abs(predictions - Y);
     %J = 1/(2*m)*sum(sqrErrors);
-    J = sum(absErrors) + lambda*weight'*weight;
+    %do this to make sure that w0 is not being penalized
+    weightWithOutFirstRow = weight(2:end ,:);
+    J = sum(absErrors) + lambda*weightWithOutFirstRow'*weightWithOutFirstRow;
 
 end

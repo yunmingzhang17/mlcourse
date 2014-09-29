@@ -133,4 +133,8 @@ For training data B, we can see the error with lambda = 0 is much larger compare
 \end{figure}
 
 This shows that as we increase the value of lambda, the error first decreases. However, as we futher
-increase lambda, the weight vectors no longer rely on the data
+increase lambda, the weight vectors no longer rely on the data, the error increases quickly. 
+
+
+Even with the best lambda we chose from the validation set, the error for the test set is still large
+in the order of $10^{7}$. However, we belive that this is because the simple linear model (without non-linear basis functions) is unable to accurately describe a model. 

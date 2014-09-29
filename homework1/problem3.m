@@ -170,7 +170,7 @@ end
     x_train = importdata('dataset/x_train.csv');
     y_train = importdata('dataset/y_train.csv');
 
-    
+    %test the best lambda on validation
     lambda = 5000;
     weight = computeRidgeWeightNoDim(x_train, y_train, lambda);
     
@@ -188,8 +188,11 @@ end
     ytestEstimate = XtestEstimate*weight;
     testErr = sumsqr(y_val - ytestEstimate)
 
-   
-    
+    %fit a model on the test set, to verify that the error is there
+    %doesn't work, there seem to be some precision error. 
+%     weightTestOverfit = computeRidgeWeightNoDim(x_test, y_test, 0);
+%     yTestOverfit = XtestEstimate*weightTestOverfit;
+%     OverfitError = sumsqr(yTestOverfit - y_test)
     
     %plot the difference for different lambda
     current = 0.0001;
