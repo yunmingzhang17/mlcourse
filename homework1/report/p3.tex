@@ -33,20 +33,25 @@ We have conducted a series of experiments using M =1, M = 3 and M = 9 with varyi
 
 
 \begin{figure}[!htb]
-\minipage{0.5\textwidth}
+\minipage{0.32\textwidth}
   \includegraphics[width=\linewidth]{figures/p3_bishop_m=1}
   \caption{M = 1}\label{fig:figures/p3_bishop_m=1}
 \endminipage\hfill
-\minipage{0.5\textwidth}
+\minipage{0.32\textwidth}
   \includegraphics[width=\linewidth]{figures/p3_bishop_m=3}
   \caption{M = 3}\label{fig:figures/p3_bishop_m=3}
 \endminipage\hfill
-\minipage{0.5\textwidth}%
+\minipage{0.32\textwidth}%
   \includegraphics[width=\linewidth]{figures/p3_bishop_m=9}
   \caption{M = 9}\label{fig:figures/p3_bishop_m=9}
-\endminipage
+\endminipage\hfill
+
 \end{figure}
 
+
+
+\begin{figure}{h}
+\end{figure}
 
 
 %% \begin{figure}[h]
@@ -105,4 +110,27 @@ This is because there is a outlier in trainng set B. This prevented us from crea
 \end{figure}
 
 
+The best configurtion from the model in A is with M = 2; The error is alredy very small. Increasing
+the lambda actually increases the error rate quickly. 
+
+As we incrase M, the error incrases as the model overfits the original traning A data. However, we 
+can see the effect of regularing the weight. The error rate decreases as we increase the size of lambda. However, after the minimum point, the error goes up again as the weight factors are no longer guided by the training data set. 
+
+For training data B, we can see the error with lambda = 0 is much larger compare to A. This is because there is an outlier in the traning data B. 
+
+
 \subsection{Part3}
+\begin{figure}[!htb]
+  \minipage{0.48\textwidth}
+  \includegraphics[width=\linewidth]{figures/p3_training_validation_data}
+  \caption{Training and Validation Data}\label{fig:figures/p3_training_validation_data}
+  \endminipage\hfill
+  \minipage{0.48\textwidth}%
+  \includegraphics[width=\linewidth]{figures/p3_blogdata_lambda}
+  \caption{Blog validation data error}
+  \endminipage\hfill
+
+\end{figure}
+
+This shows that as we increase the value of lambda, the error first decreases. However, as we futher
+increase lambda, the weight vectors no longer rely on the data

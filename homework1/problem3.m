@@ -3,7 +3,8 @@
 close all;
 
  
- part2();
+ %part2();
+ part3();
     
  %evaluateMandLambdaOnBishop();
  end
@@ -43,7 +44,7 @@ fplot(@(x) sin(2*pi*x), [0,1, -2, 2], 'r')
 
 %Part2
 
-%part3();
+part3();
 
 
 
@@ -95,21 +96,24 @@ end
     [XB, YB] = regressBData();
     [XV, YV] = validateData();
     
-    
-%     plot(XA, YA, 'og', 'MarkerSize', 10);
-%     hold on;
-%     plot(XB, YB, 'xb', 'MarkerSize', 10);  %blue has an outlier
-%     hold on;
-%     plot(XV, YV, '+r', 'MarkerSize', 10);
-    
+    figure();
+    plot(XA, YA, 'og', 'MarkerSize', 10);
+    hold on;
+    plot(XB, YB, 'xb', 'MarkerSize', 10);  %blue has an outlier
+    hold on;
+    plot(XV, YV, '+r', 'MarkerSize', 10);
+    title('Training Set A, B and Validation Set');
+    legend('Training Set A', 'Training Set B', 'Validation Set', 'Location', 'southeast');
+    xlabel('x');
+    ylabel('y');
 %     
 %     weightA = computeRidgeWeight(XA', YA', 0, 2);
 %     sse1 = computeSSE3(weightA, XA', YA')
 %     
-%     weightA = computeRidgeWeight(XA', YA', 0.1, 3);
+%     weightA = computeRidgeWeight(XA', YA', 0.1, 3);, 
 %     sse2 = computeSSE3(weightA, XA', YA')
 
-    
+    figure();
     weightA = computeRidgeWeight(XA', YA', 0.001, 6)
     %weightA2 = ridgeRegression(XA', YA', 0.1)
     sseA = computeSSE3(weightA, XA', YA')
@@ -132,6 +136,7 @@ end
     plot(XV', YV', 'og', 'MarkerSize', 10);
     hold on;
     plotWithTheta2(weightA, -3, 2);
+    
 
     
 %     weightB = computeRidgeWeight(XB', YB', 1, 4);
@@ -155,44 +160,6 @@ end
     hold on;
     plotWithTheta2(weightB, -3, 2);
     
-    evaluateMandLambda(@computeRidgeWeight, @computeSSE3);
-    
-%     current = 0.0001;
-%     numberOfLambda = 30;
-%     lambdarange = zeros(numberOfLambda,1)';
-%     for i = 1:numberOfLambda
-%         lambdarange(i) = current;
-%         current = current * 2;
-%     end
-    
-%     lambdarange
-%     M = 6;
-%     errA = zeros(length(lambdarange), 1);
-%     errB = zeros(length(lambdarange), 1);
-%     i = 0;
-%     for lambda = lambdarange
-%         i = i+ 1;
-%         lambda
-%         weightA = computeRidgeWeight(XA', YA', lambda, M);
-%         weightB = computeRidgeWeight(XB', YB', lambda, M);
-%         sseVA = computeSSE3(weightA, XV', YV');
-%         sseVB = computeSSE3(weightB, XV', YV');
-%         errA(i) = sseVA;
-%         errB(i) = sseVB;
-%     end
-%         
-%     
-%     figure();
-%     plot(log(lambdarange'), errA, 'og', 'MarkerSize', 10);
-%     
-%     figure();
-%     plot(log(lambdarange'), errB, 'ob', 'MarkerSize', 10);
-
-        
-%     for M = 1:5
-%         
-%     end
-    
     
  end
  
@@ -204,7 +171,7 @@ end
     y_train = importdata('dataset/y_train.csv');
 
     
-    lambda = 1;
+    lambda = 5000;
     weight = computeRidgeWeightNoDim(x_train, y_train, lambda);
     
     x_val = importdata('dataset/x_val.csv');
@@ -219,37 +186,38 @@ end
     [rows, cols] = size(x_test);
     XtestEstimate = [ones(rows, 1), x_test];
     ytestEstimate = XtestEstimate*weight;
-    testErr = sumsqr(y_val - yvalEstimate)
+    testErr = sumsqr(y_val - ytestEstimate)
 
    
     
     
-%     weight2 = ridgeRegression(X,Y,1);
-%     
-%     diff = sum(weight - weight2);
-%     ERR = zeros(60,1);
-%     
-%     for fi=1:60
-%         A{fi} = importdata(strcat('BlogFeedback/', fls(fi).name));
-%         testData = A{fi};
-%         [rowT, colT] = size(testData);
-%         Xtest = testData(:,1:(colT-1));
-%         Ytest = testData(:,colT);
-%         XtestEstimate = [ones(rowT, 1), Xtest];
-%         YtestEstimate = XtestEstimate*weight;
-%         
-%         %normalized by the numerber of data sets
-%         err = sumsqr(YtestEstimate - Ytest)/rowT;
-%         ERR(fi) = err;
-%     end
-% %     fls = dir('BlogFeedback/blogData_test*.csv');
-% %     for fi=1:numel(fls)
-% %         A{fi} = importdata(strcat('BlogFeedback/', fls(fi).name));
-% %     end
-%     varErr = var(ERR)
-%     meanErr = mean(ERR)
+    %plot the difference for different lambda
+    current = 0.0001;
+    numberOfLambda = 40;
+    lambdarange = zeros(numberOfLambda,1)';
+    blogErr = zeros(length(lambdarange), 1);
+
+    for i = 1:numberOfLambda
+        lambdarange(i) = current;
+        current = current * 2;
+    end
+    i = 1;
+    for lambda = lambdarange
+        weight = computeRidgeWeightNoDim(x_train, y_train, lambda);
+        yvalEstimate = XvalEstimate*weight;
+        valErr = sumsqr(y_val - yvalEstimate);
+        blogErr(i) = valErr;
+        i = i + 1;
+    end
+    figure();
+    plot(log(lambdarange'), blogErr, 'og', 'MarkerSize', 10);
+    title('Blog data validation error ');
+    xlabel('lambda (logscale)');
+    ylabel('Validation Set Error');
      
  end
+ 
+ 
 
  function weight = computeRidgeWeight(X, Y, lambda, M)    
     Z = [];
