@@ -1,4 +1,4 @@
-function plotWithTheta(theta)
+function p = plotWithTheta(theta)
     
     M = length(theta);
     newXRangeWithOnes = [];
@@ -7,6 +7,6 @@ function plotWithTheta(theta)
         newXRangeWithOnes = horzcat(newXRangeWithOnes, xrange'.^(i));
     end
     yrange = newXRangeWithOnes*theta;
-    plot(xrange, yrange, 'g');
+    p = plot(xrange, yrange, 'g');
 
 end

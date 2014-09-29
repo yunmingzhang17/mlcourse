@@ -27,11 +27,37 @@ We used a regularized term to calculate optimal weight using the following equat
 We have conducted a series of experimentation with the simple data from Bishop's Figure 1.4
 
 %TODO: generate graphs to show the impact of increasing M (overfitting), but this is shown in the previou squestion
+As M increases, the curve is more likely to overfit the data. 
 
-%TODO: generate graphs to show the inmpact of increaing lambda
+We have conducted a series of experiments using M =1, M = 3 and M = 9 with varying lambdas. 
+
+
+\begin{figure}[!htb]
+\minipage{0.5\textwidth}
+  \includegraphics[width=\linewidth]{figures/p3_bishop_m=1}
+  \caption{M = 1 with various lambdas}\label{fig:figures/p3_bishop_m=1}
+\endminipage\hfill
+\minipage{0.5\textwidth}
+  \includegraphics[width=\linewidth]{figures/p3_bishop_m=3}
+  \caption{M = 3 with various lambdas}\label{fig:figures/p3_bishop_m=3}
+\endminipage\hfill
+\minipage{0.5\textwidth}%
+  \includegraphics[width=\linewidth]{figures/p3_bishop_m=9}
+  \caption{M = 9 with various lambdas}\label{fig:figures/p3_bishop_m=9}
+\endminipage
+\end{figure}
 
 
 
+%% \begin{figure}[h]
+
+%%   \includegraphics[width=0.5\textwidth]{figures/p3_bishop_m=1}
+%%   \includegraphics[width=0.5\textwidth]{figures/p3_bishop_m=3}
+%%   \includegraphics[width=0.5\textwidth]{figures/p3_bishop_m=9}
+
+%% \end{figure}
+
+we can see that for a smaller M, changing the lambda doesn't impact the performance as much. It bends the graph in the more general direction. For a large M, the lambda greatly reduces the overfitting problem. As a result, even with a large M, the model can be more generalized. 
 
 \subsection{Part2}
 

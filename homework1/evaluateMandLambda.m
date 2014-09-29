@@ -42,11 +42,7 @@ function evaluateMandLambda(computeWeightFunction, lossFunction )
     end
     
     
-    function evaluateMandLambdaOnBishop(computeWeightFunction)
-        
-        
-        
-    end
+
 
  
 end

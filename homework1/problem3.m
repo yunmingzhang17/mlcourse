@@ -58,27 +58,30 @@ function evaluateMandLambdaOnBishop()
 
     
     %lambdarange = [0, 0.01, 0.05, 0.1, 0.5, 1];
-    lambdarange = [0, 0.01, 0.05, 0.1, 0.5, 1, 5];
-    
+    lambdarange = [0, 0.01, 0.05, 0.5];
+    color = ['g', 'b', 'y', 'c']
     Mrange = [1, 3, 9];
     for M = Mrange
         M
 
         i = 0;
+        figure();
+        plot(X, Y, 'o', 'MarkerSize', 10);
+        xlabel('x');
+        ylabel('y');
+        hold on
+        title(strcat('Bishop Figure 1.4 M = ', num2str(M)));
+        p = zeros(length(lambdarange), 1);
+            
+        fplot(@(x) sin(2*pi*x), [0,1, -2, 2], 'r') 
         for lambda = lambdarange
             i = i+ 1;
             lambda
             weightA = computeRidgeWeight(X', Y', lambda, M)
-            figure();
-            plot(X, Y, 'o', 'MarkerSize', 10);
-            xlabel('x');
-            ylabel('y');
-            hold on
-            fplot(@(x) sin(2*pi*x), [0,1, -2, 2], 'r') 
-            hold on
-            plotWithTheta(weightA);
+            p(i) = plotWithThetaAndColor(weightA, color(i));
             
         end
+        legend('x', 'sin2pi', strcat('lambda: ', num2str(lambdarange(1))), strcat('lambda: ', num2str(lambdarange(2))), strcat('lambda: ', num2str(lambdarange(3))), strcat('lambda: ', num2str(lambdarange(4))));
     end
         
         
