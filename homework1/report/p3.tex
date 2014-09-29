@@ -35,15 +35,15 @@ We have conducted a series of experiments using M =1, M = 3 and M = 9 with varyi
 \begin{figure}[!htb]
 \minipage{0.5\textwidth}
   \includegraphics[width=\linewidth]{figures/p3_bishop_m=1}
-  \caption{M = 1 with various lambdas}\label{fig:figures/p3_bishop_m=1}
+  \caption{M = 1}\label{fig:figures/p3_bishop_m=1}
 \endminipage\hfill
 \minipage{0.5\textwidth}
   \includegraphics[width=\linewidth]{figures/p3_bishop_m=3}
-  \caption{M = 3 with various lambdas}\label{fig:figures/p3_bishop_m=3}
+  \caption{M = 3}\label{fig:figures/p3_bishop_m=3}
 \endminipage\hfill
 \minipage{0.5\textwidth}%
   \includegraphics[width=\linewidth]{figures/p3_bishop_m=9}
-  \caption{M = 9 with various lambdas}\label{fig:figures/p3_bishop_m=9}
+  \caption{M = 9}\label{fig:figures/p3_bishop_m=9}
 \endminipage
 \end{figure}
 
@@ -67,6 +67,42 @@ we can see that for a smaller M, changing the lambda doesn't impact the performa
 %TODO: generate graphs to show the inmpact of increaing lambda
 
 %TODO: show that the models trained from data A is a lot better than model B
+
+First, we can see that in general error from training set B is higher than that from training set A. 
+This is because there is a outlier in trainng set B. This prevented us from creating a good model. 
+
+
+
+\begin{figure}[!htb]
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{figures/p3_regressA_m=2}
+  \caption{M = 2}\label{fig:figures/p3_regressA_m=2}
+\endminipage\hfill
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{figures/p3_regressA_m=4}
+  \caption{M = 4}\label{fig:figures/p3_regressA_m=4}
+\endminipage\hfill
+\minipage{0.32\textwidth}%
+  \includegraphics[width=\linewidth]{figures/p3_regressA_m=6}
+  \caption{M = 6}\label{fig:figures/p3_regressA_m=6}
+\endminipage
+\end{figure}
+
+
+\begin{figure}[!htb]
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{figures/p3_regressB_m=2}
+  \caption{M = 2}\label{fig:figures/p3_regressB_m=2}
+\endminipage\hfill
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{figures/p3_regressB_m=4}
+  \caption{M = 4}\label{fig:figures/p3_regressB_m=4}
+\endminipage\hfill
+\minipage{0.32\textwidth}%
+  \includegraphics[width=\linewidth]{figures/p3_regressB_m=6}
+  \caption{M = 6}\label{fig:figures/p3_regressB_m=6}
+\endminipage
+\end{figure}
 
 
 \subsection{Part3}

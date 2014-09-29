@@ -3,9 +3,9 @@
 close all;
 
  
-%part2();
+ part2();
     
- evaluateMandLambdaOnBishop();
+ %evaluateMandLambdaOnBishop();
  end
 
  
@@ -110,7 +110,7 @@ end
 %     sse2 = computeSSE3(weightA, XA', YA')
 
     
-    weightA = computeRidgeWeight(XA', YA', 0.1, 3)
+    weightA = computeRidgeWeight(XA', YA', 0.001, 6)
     %weightA2 = ridgeRegression(XA', YA', 0.1)
     sseA = computeSSE3(weightA, XA', YA')
     
@@ -146,7 +146,7 @@ end
 %     plotWithTheta2(weightB, -3, 2);
     figure();
     
-    weightB = computeRidgeWeight(XB', YB', 1, 4);
+    weightB = computeRidgeWeight(XB', YB', 0.01, 6);
     sseB = computeSSE3(weightB, XB', YB')
     
     

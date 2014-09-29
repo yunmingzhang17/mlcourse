@@ -4,7 +4,7 @@ function evaluateMandLambda(computeWeightFunction, lossFunction )
     [XV, YV] = validateData();
     
     current = 0.0001;
-    numberOfLambda = 30;
+    numberOfLambda = 40;
     lambdarange = zeros(numberOfLambda,1)';
     for i = 1:numberOfLambda
         lambdarange(i) = current;
@@ -12,9 +12,8 @@ function evaluateMandLambda(computeWeightFunction, lossFunction )
     end
     
     
-    Mrange = [ 1, 2, 4, 10];
+    Mrange = [ 1, 2, 3, 4, 6];
     for M = Mrange
-        M
         errA = zeros(length(lambdarange), 1);
         errB = zeros(length(lambdarange), 1);
         i = 0;
@@ -27,22 +26,20 @@ function evaluateMandLambda(computeWeightFunction, lossFunction )
             errB(i) = lossFunction(weightB, XV', YV');
 
         end
-        weightA
-        weightB
         figure();
         plot(log(lambdarange'), errA, 'og', 'MarkerSize', 10);
         title(strcat('Using trainng set A and M = ', num2str(M)));
+        xlabel('lambda (logscale)');
+        ylabel('Error');
         
         figure();
         plot(log(lambdarange'), errB, 'ob', 'MarkerSize', 10);
         title(strcat('Using trainng set B and M = ', num2str(M)));
-        
+        xlabel('lambda (logscale)');
+        ylabel('Error');    
         
         
     end
     
     
-
-
- 
 end
