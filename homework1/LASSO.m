@@ -11,6 +11,7 @@ function J = LASSO(X, Y, weight, lambda)
     predictions = newX*weight;
     sqrErrors = (predictions - Y).^2;
     %J = 1/(2*m)*sum(sqrErrors);
-    J = sum(sqrErrors) + lambda*sum(abs(weight));
-
+    weightWithOutFirstRow = weight(2:end ,:);
+    %J = sum(sqrErrors) + lambda*sum(abs(weight));
+    J = sum(sqrErrors) + lambda*sum(abs(weightWithOutFirstRow));
 end
