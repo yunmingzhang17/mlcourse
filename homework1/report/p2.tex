@@ -54,7 +54,7 @@ The error we observed is small for smaller Ms (M = 2 and 3).  We used the same p
 \end{figure}
 
 
-we used gradient descent to replicate 
+We used gradient descent to replicate 
 the Bishop Figure 1.4 and verified the paramteres in the same way in part1. 
 \textit{Convergence criteria:} we generally chose the threshold to be around $10^{-6}$ as a convergence criteria. We selected this convergence criteria baed the on comparing the weight generated and those listed in Bishop's book and visual verification. 
 \textit{Step size:} For M = 0,1,3, it is easy to use gradient descent to find the minimum of the graph. We can use larger step sizes for smaller Ms, such as 0.05. For M = 9, we had to select a smaller step size around 0.02 - 0.03. If we select a step size that is too large, we will not converge. This is because the gradient changes more quickly for larger M using SSE.
