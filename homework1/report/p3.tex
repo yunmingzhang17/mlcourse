@@ -1,29 +1,7 @@
 \section{Problem 3}
 
-\subsection{Part1}
+{\bfseries Part1}
 
-{\bfseries Algorithm} \\
-We first create a centered x data matrix Z. And then we cerate a centered y values.
-
-\begin{equation}
-z^{(i)}_{j} = x^{(i)}_{j} - \bar{x}_{j} \hspace{10 mm} 
-y^{(i)}_{c} = y^{(i)} - \bar{y} \\
-\end{equation}
-
-Then we use the formula for calculating the error. It uses a $\lambda$ for regularizing the
-weight terms. 
-
-\begin{equation}
-  E(w)= (Y_{c} - ZW)^T(Y_{c}-ZW) + \lambda W^TW \\
-\end{equation}
-
-We used a regularized term to calculate optimal weight using the following equation
-
-\begin{equation}
-  W_{ridge} = (Z^{T}Z + \lambda I)^{-1}Z^{T}Y_{c}
-\end{equation}
-
-{\bfseries Experimentation} \\
 We have conducted a series of experimentation with the simple data from Bishop's Figure 1.4
 
 %TODO: generate graphs to show the impact of increasing M (overfitting), but this is shown in the previou squestion
@@ -64,18 +42,10 @@ We have conducted a series of experiments using M =1, M = 3 and M = 9 with varyi
 
 we can see that for a smaller M, changing the lambda doesn't impact the performance as much. It bends the graph in the more general direction. For a large M, the lambda greatly reduces the overfitting problem. As a result, even with a large M, the model can be more generalized. 
 
-\subsection{Part2}
-
-
-%TODO: generate graphs to show the impact of increasing M (overfitting)
-
-%TODO: generate graphs to show the inmpact of increaing lambda
-
-%TODO: show that the models trained from data A is a lot better than model B
+{\bfseries Part2}
 
 First, we can see that in general error from training set B is higher than that from training set A. 
 This is because there is a outlier in trainng set B. This prevented us from creating a good model. 
-
 
 
 \begin{figure}[!htb]

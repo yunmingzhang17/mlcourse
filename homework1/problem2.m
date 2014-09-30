@@ -53,9 +53,25 @@ clc
 
 %compareSSEGradient();
 %part1();
+%testGradientDescent();
+%compareSSEGradient
+
+compareToFminunc();
 testGradientDescent();
 
+end
 
+function compareToFminunc()
+
+
+    opt = optimset('TolFun', 1e-5);
+    %[x,y,exitflag,output,lambda] = fminunc(@qualdraticBowl,[10,10],[-1 -1;1 1],[1000,1000])
+
+    [x,y,exitflag,output,lambda] = fminunc(@computeSSE2, [1; 1], opt)
+    [x,y,exitflag,output,lambda] = fminunc(@computeSSE2, [0; 0; 0;], opt)
+    
+    initGuess = [0.35; 100; -5321.83; 48568.31; -231639.30; 640042.26; -1061800.52; 1042400.18; -557682.99; 125201.43;];
+    [x,y,exitflag,output,lambda] = fminunc(@computeSSE2, initGuess, opt)
 end
 
 
@@ -82,7 +98,7 @@ hold on
 fplot(@(x) sin(2*pi*x), [0,1, -2, 2], 'r') 
 
 hold on
-minTheta = gradientDescentML([1; 1], @computeSSE, @computeSSEGradient, 0.05, 0.000001)
+[minTheta, newy, iterations] = gradientDescentML([1; 1], @computeSSE, @computeSSEGradient, 0.05, 0.000001)
 plotWithTheta(minTheta);
 
 
@@ -143,8 +159,10 @@ hold on
 fplot(@(x) sin(2*pi*x), [0,1, -2, 2], 'r') 
 
 hold on
-minTheta10 = gradientDescentML(initGuess, @computeSSE2, @computeSSEGradient2, 0.03, 0.0000001)
+[minTheta10, newy, iterations] = gradientDescentML(initGuess, @computeSSE2, @computeSSEGradient2, 0.03, 0.0000001)
 plotWithTheta(minTheta10);
+
+
 
 end
 
@@ -230,13 +248,14 @@ fplot(@(x) sin(2*pi*x), [0,1, -2, 2], 'r')
 hold on
 plotMLEforM(X, Y, 9);
 
+
 end
 
 function compareSSEGradient
     x = [[10, 10, 12, -20]; [12, 2, 20, 15];];
     [rows, cols] = size(x);
     for col = 1:cols
-        computeSSEGradient2(x(:, col), 1)
+        computeSSEGradient2(x(:, col))
         computeNumericalSSEGradient(x(:, col))
     end
 end
@@ -250,8 +269,8 @@ function y = computeNumericalSSEGradient(x)
     xminus(1) = x(1) - delta;
     xplus(2) = x(2) + delta;
     xminus(2) = x(2) - delta;
-    y(1) = (computeSSE2([xplus(1); x(2)], M) - computeSSE2([xminus(1); x(2)], M))./(2*delta);   
-    y(2) = (computeSSE2([x(1); xplus(2)], M) - computeSSE2([x(1); xminus(2)], M))./(2*delta); 
+    y(1) = (computeSSE2([xplus(1); x(2)]) - computeSSE2([xminus(1); x(2)]))./(2*delta);   
+    y(2) = (computeSSE2([x(1); xplus(2)]) - computeSSE2([x(1); xminus(2)]))./(2*delta); 
 end
 
 
