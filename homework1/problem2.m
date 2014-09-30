@@ -52,8 +52,8 @@ clc
 % plot(xrange, yrange, 'g');
 
 %compareSSEGradient();
-part1();
-%testGradientDescent();
+%part1();
+testGradientDescent();
 
 
 end
