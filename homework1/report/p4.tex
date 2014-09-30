@@ -3,51 +3,47 @@
 {\bfseries 4.1 Part1}
 
 \begin{figure}[!htb]
-\minipage{0.32\textwidth}
+\minipage{0.25\textwidth}
   \includegraphics[width=\linewidth]{figures/p4_LAD_regressA_m=1}
 \endminipage\hfill
-\minipage{0.32\textwidth}
+\minipage{0.25\textwidth}
   \includegraphics[width=\linewidth]{figures/p4_LAD_regressA_m=2}
 \endminipage\hfill
-\minipage{0.32\textwidth}                                                                                 \includegraphics[width=\linewidth]{figures/p4_LAD_regressB_m=1}
+\minipage{0.25\textwidth}                                                                                 \includegraphics[width=\linewidth]{figures/p4_LAD_regressB_m=1}
 \endminipage\hfill
-\minipage{0.32\textwidth}
+\minipage{0.25\textwidth}
   \includegraphics[width=\linewidth]{figures/p4_LAD_regressB_m=2}
 \endminipage\hfill
-\caption{LAD}
+\caption{LAD for set A,B and M = 1,2}\label{p4_LAD}
 \end{figure}
 
-My experiments on validation set shows that M = 1, M = 2 generates the
-best results. We carried out a series of experiments with varying values
-of lambda, setting M = 2 and 3. We tested for training set A and B. 
+Again we splitted the validation set into a validation and test set. Figure~\ref{p4_LAD} shows the result for M = 1,2 for LAD. My experiments on validation set shows that M = 1, M = 2 generates the
+best results using both A and B. We carried out a series of experiments with varying values
+of lambda, setting M = 2 and 3. I tested a few configurations with M = 3 and M = 4, but the 
+error is larger than that of the best M = 2 configurations.  
 
 We first notice that the model generated from training set B's error
 is comparable to the models generated from training set A. The minimum of
 both models is around 5. We belive the reason to that is that the 
 LAD model uses an absolute value based loss function that penalizes less
-on outliers compare to the squared error loss function. 
-
-Additionally, as the error is small for both models. There is no clear 
-inflation point as we increase the lambda. We chose the best M and lambda
-for A (M = 2, lambda = 0.01) , for B (M = 2, lambda = 0.01) using the LAD's loss function.  Then, we tested the two models on the test set, which we created from the validation set. 
-%TODO: test it on the test set
-The error we see on the test set is very similar to the error in the validation set. 
+on outliers compare to the squared error loss function. As a result, the model achieves low error rate even for training set B, which has an outlier. Additionally, as the error is small for both models. There is no clear inflation point as we increase the lambda. We chose the best M and lambda
+for A (M = 2, lambda = 0.01) , for B (M = 2, lambda = 0.01) using the LAD's loss function.  Then, we tested the two models on the test set. The error we see on the test set is very similar to the error in the validation set. 
 
 
 {\bfseries 4.2 Part2}
 \begin{figure}[!htb]
-\minipage{0.32\textwidth}
+\minipage{0.25\textwidth}
   \includegraphics[width=\linewidth]{figures/p4_LASSO_regressA_m=1}
 \endminipage\hfill
-\minipage{0.32\textwidth}
+\minipage{0.25\textwidth}
   \includegraphics[width=\linewidth]{figures/p4_LASSO_regressA_m=2}
 \endminipage\hfill
-\minipage{0.32\textwidth}                                                                                 \includegraphics[width=\linewidth]{figures/p4_LASSO_regressB_m=1}
+\minipage{0.25\textwidth}                                                                                 \includegraphics[width=\linewidth]{figures/p4_LASSO_regressB_m=1}
 \endminipage\hfill
-\minipage{0.32\textwidth}
+\minipage{0.25\textwidth}
   \includegraphics[width=\linewidth]{figures/p4_LASSO_regressB_m=2}
 \endminipage\hfill
-\caption{LASSO}
+\caption{LASSO validation error using set A, M = 1,2 and B, M = 1,2}\label{fig:p4_LASSO}
 \end{figure}
 
 
