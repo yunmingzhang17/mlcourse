@@ -1,7 +1,6 @@
 \section{Problem 4}
 
-\subsection{Part1}
-
+{\bfseries 4.1 Part1}
 
 \begin{figure}[!htb]
 \minipage{0.32\textwidth}
@@ -35,8 +34,7 @@ for A (M = 2, lambda = 0.01) , for B (M = 2, lambda = 0.01) using the LAD's loss
 The error we see on the test set is very similar to the error in the validation set. 
 
 
-\subsection{Part2}
-
+{\bfseries 4.2 Part2}
 \begin{figure}[!htb]
 \minipage{0.32\textwidth}
   \includegraphics[width=\linewidth]{figures/p4_LASSO_regressA_m=1}
@@ -55,8 +53,8 @@ The error we see on the test set is very similar to the error in the validation 
 
 The error rate for LASSO increases quickly for M = 2 and M = 3.
 
+{\bfseries 4.3 Part3}
 
-\subsection{Part3}
 We want to use the least absolute deviations
 when we believe that there are outliers in your training data. As we can see, model trained using LAD
 has much lower error rate compare to LASSO and SSE on training set B. When we are confident about the quality of the data (very few or no outliers), then using a squared error loss function would be more accurate in training the model. LASSO uses L1 norm for regularization to make the weight factors more sparse. 
