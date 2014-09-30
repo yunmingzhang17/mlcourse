@@ -1,73 +1,27 @@
 \section{Problem 1 Implement Gradient Descent}
 
-\subsection{Algorithm}
-The optimization goal is to minimize function $y = \bf{F(X)}$. We update the independent variable $\bf{X}$ with the gradient of function $\bf{F(X)}$ and stepsize $\gamma$.
-
-\begin{equation}
-\bf{X_{n+1}} = \bf{X_{n}} - \gamma \cdot \bigtriangledown F(X_{n})
-\end{equation}
-\\
-We stop the iteration when it converges, i.e., the difference between two consecutive values of the function is smaller than the convergence criteria $\delta$.
-
-\begin{equation}
-|y_{n+1} - y_n| < \delta
-\end{equation}
-\\
-Two functions are used to evaluate the algorithm:
+\subsection{Initial Guess, Step Size, and Convergence Criteria}
+Two functions are used to evaluate the algorithm. $F_1$ is a convex qualdratic bowl.  $F_2$ a superposition of three psedo-multivariate gaussian distributions, which is non-convex.
 
 \begin{figure}[h]
  \centering
-\includegraphics[height=2.2in]{figures/p1_QualdraticBowl} 
-\includegraphics[height=2.2in]{figures/p1_MultivariantGaussian} 
+\includegraphics[height=2in]{figures/p1_QualdraticBowl} 
+\includegraphics[height=2in]{figures/p1_MultivariantGaussian} 
     \caption{Plots of two functions}
     \label{fig:functions}
 \end{figure}
 
-A qualdratic bowl function, which is convex:
-\begin{equation}
-F_1(X) = 3 {x_1}^2+4 {x_2}^2
-\end{equation}
-
-A superposition of three psedo-multivariate gaussian distributions (they are scaled but not real multivariate gaussian distributions), which is non-convex with three local minimals:
-\begin{equation}
-F_2(X) = \sum_{i=1}^3 a_i \cdot e^{-\frac{1}{2} (X - \mu_i)^T \Sigma_i ^{-1} (X - \mu_i)}
-\end{equation}
-where 
-\[
-a_1 = 1.5, a_2 = 1, a_3 = 0.5
-\]
-\[
-\mu_1 = [2, 2]^T, \mu_2 = [-3,1]^T, \mu_3 = [0,-4]^T,\]
-\[
-\Sigma_1 =\left( \begin{array}{ccc}
-1 & 0.5 \\
-0.5 & 1  \end{array} \right),
-\Sigma_2 =\left( \begin{array}{ccc}
-1 & 0 \\
-0 & 1  \end{array} \right),
-\Sigma_3 =\left( \begin{array}{ccc}
-1 & -0.7 \\
--0.7 & 1  \end{array} \right)
-\]
-
-
-
-
-\subsection{Initial Guess, Step Size, and Convergence Criteria}
-
-For $F_1$, no matter where the initial guess is, with appropriate step size and convergence criteria, the algorithm will converge at last. Differerent initial guesses result in different iteration numbers needed to converge. The further the initial guess is from the real optimal, the more iterations it is needed to converge. The left plot of Figure~\ref{fig:Itr} shows that, different inital points result in differernt trajectory of converge. The three initial points are $[10,0], [0,10], [7.07,7.07]$ respectively. The right plot of Figure~\ref{fig:Itr} shows that, the number of iteration increases as the distance from the initial point to the real optimum increases. The Initial distance from the optimum varies from 0.01 to 10000, and the iteration number varies from 3 to 18. Here, step size is fixed to 0.1 and convergence threshold is 0.0001.
+For $F_1$, no matter where the initial guess is, with appropriate step size and convergence criteria, the algorithm will converge at last. Differerent initial guesses result in different iteration numbers. The further the initial guess is from the real optimal, the more iterations it needs to converge. For $F_2$, the intial guess plays a more important role. Since the function is nonconvex and three local minimum exist, the minimum point found by the algorithm could be local minimal but not global minimal. Also, there are 'flat' area exists in this case. The algorithm could converge in two iterations without decsending to the optimums. A very small converge criteria is needed to avoid this. 
 
 \begin{figure}[h]
  \centering
-\includegraphics[height=2in]{figures/p1_QualdraticBowlWDifferenrtInitial} 
-\includegraphics[height=2in]{figures/p1_QualdraticItrInit} 
-    \caption{(Left) Iteration trajectory from different initial guess (Right) Iteration number v.s. Initial distance from the optimal}
+\includegraphics[height=1.8in]{figures/p1_QualdraticBowlWDifferenrtInitial} 
+\includegraphics[height=1.8in]{figures/p1_MultivarianGaussianWDifferenrtInitial} 
+    \caption{Iteration trajectories from different initial guesses}
     \label{fig:Itr}
 \end{figure}
 
-Next, we adjust the stepsize with the inital point and convergence threshold fixed (inital guess is [10,10], convergence threshold is 0.0001). The results in table~\ref{tab:ItrStep} show that, when the stepsize is relatively small, the iteration number decreases as the stepsize increases. However, after the stepsize is large enough, increase the stepsize will help reduce the number iteration no more. Here, when stepsize is 0.2, it takes longer to converge than stepsize is 0.1. If the stepsize further increase, the algorithm may not converge (when stepsize equal or larger than 0.3). From figure~\ref{fig:ItrStep} we can see that, when stepsize is big, the gradient descent trajectory can oscillate around the optimum. If it is too big, the oscillation can be unstable thus never converge.
-
-Another observation is, a moderate stepsize (in this case 0.1) finds the minimum point of the function with the most accuracy. Thus it is crucial to choose an appropriate stepsize, not too big and not too small.
+Next, we adjust the stepsize with the inital point and convergence threshold fixed. Only results of $F_1(X)$ are presented however $F_2(X)$ behaves similarly. Table~\ref{tab:ItrStep} shows that, when the stepsize is relatively small, the iteration number decreases as the stepsize increases. However, after the stepsize is large enough, increase the stepsize will help reduce the number iteration no more. Here, when stepsize is 0.2, it takes longer to converge than stepsize is 0.1. If the stepsize further increase, the algorithm may not converge (when stepsize equal or larger than 0.3). From figure~\ref{fig:ItrStep} we can see that, when stepsize is big, the gradient descent trajectory can oscillate around the optimum. Another observation is, a moderate stepsize (in this case 0.1) finds the minimum point of the function with the most accuracy. 
 
 \begin{table}[h]
 \centering
@@ -91,7 +45,7 @@ Minimum found $y$ & 0.0081 & 0.0016 & 6.92e-4&9.38e-5 & 3.30e-6 & 3.18e-5\\
     \label{fig:ItrStep}
 \end{figure}
 
-Finally, we adjust the convergence criteria with the other attributes fixed (Inital guess = [10,10], stepsize = 0.1). Table~\ref{tab:ItrConve} shows that, the smaller the convergence criteria is, the more accurate the found minimum point is, however the longer it is to converge.
+Finally, we adjust the convergence criteria with the other attributes fixed. Table~\ref{tab:ItrConve} shows that, the smaller the convergence criteria is, the more accurate the found minimum point is, however the longer it takes to converge. Only results of $F_1(X)$ are presented and $F_2(X)$ behaves similar.
 \begin{table}[h]
 \centering
 \caption{Number of Iteration \& Minimum found v.s. Convergence criteria} \label{tab:ItrConve} 
@@ -107,68 +61,11 @@ Minimum found $y$ & 5.28e-7 & 3.30e-6 & 1.29e-4 & 8.05e-6 & 5.00e-3 & 3.15e-2\\
 \end{table}
 
 
-For $F_2$, the superpostion of multivariate gaussian distribution, most of the observations above still hold. The most different feature is summarized below.
+\subsection{Analytical Gradient, Numerical Gradient, and $fminunc()$ }
 
-In this case, the intial guess plays a more important role. Since the function is nonconvex and three local minimum exist, the minimum point found by the algorithm could be local minimal but not global minimal. In this case, $X = [2,2]$ is the global minimum. However starting from differerent point, the other local minimal points $X = [-3,1]$ and $X = [0,-4]$ may also be found (See Figure~\ref{fig:GaussianInit}). The gradient descent algorithm cannot avoid being trapped by the local minimums. Also, there are 'flat' area exists in this case. E.g. if we start from $X = [4,-4]$, the algorithm converge in two iterations without decsending to the optimums. A very small converge criteria is needed to avoid this. However the tradeoff between converge criteria and number of iteration should also be considered.
+For $F_1(X)$, we compare the analytical and numerical results on $9 \times 9$ points, given both $x_1$  and $x_2$ vary on 9 values: $[-1000 -100 -10 -1\  0\  1\  10\  100\   1000]$. The difference between the two gradient are controlled under the order of $10^{-8}$ with $\delta = 0.1$. Smaller $\delta$ will give even smaller difference between the analytical and numerical results. $F_2(X)$ requires smaller $\delta$ to make sure the numerical gradient doesn't differ too much from the analytical one. With $\delta = 0.0001$, the difference between the two gradient can again be controlled under the order of $10^{-8}$.
 
-\begin{figure}[h]
-\centering
-\includegraphics[height=3in]{figures/p1_MultivarianGaussianWDifferenrtInitial} 
-    \caption{Iteration trajectory from different initial guess of the non-convex function}
-    \label{fig:GaussianInit}
-\end{figure}
-
-To summarize, for gradient descent algorithm, it is important to choose an appropriate starting point to make sure it converge to global minimum instead of local minimum, as well as avoid being trapped on 'flat' area of a function. 
-Stepsize needed to chosen carefully to make sure the algorithm converges, as well as converges fast enough.
-Convergence criteria directly relates to the accuracy of the minimum point founds. Also it influence the speed of convergence.
-
-
-
-
-
-\subsection{Analytical Gradient and Numerical Gradient }
-
-The analytical gradient of the qualdratic bowl function $F_1(X)$ is:
-
-\begin{equation}
-\frac{\partial F_1(X)}{\partial x_1} = 6 x_1\\
-\frac{\partial F_2(X)}{\partial x_2} = 8 x_1\\
-\end{equation}\\
-The analytical gradient of the function $F_2(X)$ is:
-
-\begin{equation}
-\bigtriangledown F_2(X) = \sum_{i=1}^3 a_i \cdot (-\Sigma_i ^{-1} (X - \mu_i)) e^{-\frac{1}{2} (X - \mu_i)^T \Sigma_i ^{-1} (X - \mu_i)}
-\end{equation}\\
-The numerical gradient we applied is:
-
-\begin{equation}
-\frac{\partial F(X)}{\partial x_i} = \frac{F(x_j,(x_i+\delta x)) - F(x_j,(x_i-\delta x))} {2 \delta x} \hspace{10 mm}  j\neq i
-\end{equation}\\
-
-
-For the qualdratic bowl function $F_1(X)$, we compare the analytical and numerical results on $9 \times 9$ points, given both $x_1$  and $x_2$ vary on 9 values: $[-1000 -100 -10 -1\  0\  1\  10\  100\   1000]$.
-The difference between the two gradient are showed in Figure~\ref{fig:gradientCompare}.
-
-\begin{figure}[h]
-
-Difference between $\frac{\partial F(X)}{\partial x_1} $: \\
-\includegraphics[height=1.5in]{figures/p13_compare1} 
-Difference between $\frac{\partial F(X)}{\partial x_2} $: \\
-\includegraphics[height=1.5in]{figures/p13_compare2} 
-    \caption{Screenshot of difference between the numerical and analytical gradient. }
-    \label{fig:gradientCompare}
-\end{figure}
-
-Here $\delta = 0.1$. The difference between two gradients are controlled under the order of $10^{-8}$. Smaller $\delta$ will give even smaller difference between the analytical and numerical results.
-
-$F_2(X)$ requires smaller $\delta$ to make sure the numerical gradient doesn't differ too much from the analytical one. With $\delta = 0.0001$, the difference between the two gradient can again be controlled under the order of $10^{-8}$.
-
-
-
-\subsection{Compare Gradient Descent with $fminunc()$}
-
-
-
+When comparing our algorithm with the matlab $fminunc()$ function, we found our algorithm takes longer to converge. For $F_1(X)$, $fminunc()$ takes around 5 iterations to converge, and the iteration number is not sensitive to the initial guess. For $F_2(X$,  $fminunc()$ is also more efficient and the 'trapped in flat area' phenomena is not observed. However local minimum cannot be avoided.
 
 
 
