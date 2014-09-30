@@ -21,7 +21,8 @@ We have conducted a series of experimentation with the simple data from Bishop's
 
 {\bfseries 3.2 Part 2}
 
-We selected M=1,4,6 with varying lambdas and plotted the error on the validation set in the figures below. We have splitted a separate test set from the validation set for evaluating the best model selected. 
+We selected M=1,4,6 with varying lambdas and plotted the error on the validation set in the figures below. We have splitted a separate test set from the validation set for evaluating the best model selected. The lambdas in the x axis is in log scale. 
+ 
 First, comparing figure~\ref{fig:p3_regressB_m=2} to~\ref{fig:p3_regressA_m=6} with figure~\ref{fig:p3_regressA_m=2} to~\ref{fig:p3_regressB_m=6}, we can see that in general error from training set B is higher than that from training set A. This is because there is a outlier in trainng set B, as shown in Figure~\ref{fig:p3_training_validation_data}. This prevented us from creating a good model. 
 
 \begin{figure}[!htb]
@@ -56,13 +57,12 @@ First, comparing figure~\ref{fig:p3_regressB_m=2} to~\ref{fig:p3_regressA_m=6} w
 \end{figure}
 
 
-The best configurtion from the model in A is with M = 2 with lambda = 0.01(figure~\ref{fig:p3_regressA_m=2}). For M = 2, the error is alredy very small wihtout regularization. Increasing the lambda gradually increases the validation error because it leads the model away from the data observed. As we incrase M, the error incrases as the model overfits the original traning A data. For M = 6, the model has significantly higher error on the validation set as shown in figure~\ref{fig:p3_regressA_m=6}.  However, we 
+In figure~\ref{fig:p3_regressA_m=2}). For M = 2, the error is alredy very small wihtout regularization. Increasing the lambda gradually increases the validation error because it leads the model away from the data observed. As we incrase M, the error incrases as the model overfits the original traning A data. For M = 6, the model has significantly higher error on the validation set as shown in figure~\ref{fig:p3_regressA_m=6}.  However, we 
 can see the effect of regularing the weight. The error rate decreases as we increase the size of lambda. However, after the minimum point(lambda close to 1), the error goes up again as the weight factors are no longer guided by the training data set. 
 
 For training data B, we can see the error with lambda = 0 is much larger compare to A. This is because there is an outlier in the traning data B. Since the model overfits the data, regularization is important for using training set B. We can see a clear point of change (0 and 3) in figure~\ref{fig:p3_regressB_m=4} and~\ref{fig:p3_regressB_m=6}. The validation error decreases before the point and increases afterwards. 
 
-%TODO: write a little bit about what are the errors on the testing set.
-We tested the best model and lambda pair on the test set and the error we observed is comparable to that on the validation set. 
+We found the best model for using training set A is M = 2, lambda = 0.01 and the best model for B is M = 4, lambda = 1. We tested the best model and lambda pair on the test set and the error we observed is around 3 for model trained with A and 25 for model trained with B. 
 
 {\bfseries 3.3 Part3}
 \begin{figure}[!htb]
